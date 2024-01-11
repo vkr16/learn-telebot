@@ -7,4 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/telebot/getupdates', 'TelebotController::getUpdates');
-$routes->get('/telebot/whfeedback', 'TelebotController::webhookFeedback');
+$routes->post('/telebot/whfeedback', 'TelebotController::webhookFeedback');
