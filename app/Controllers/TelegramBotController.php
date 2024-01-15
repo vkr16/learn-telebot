@@ -16,7 +16,7 @@ class TelegramBotController extends BaseController
         $message = $update['message']['text'];
 
         if ($message == '/start') {
-            $this->sendMessage($chat_id, "Try send command -> \".perang\" without quotes");
+            $this->sendMessage($chat_id, "Try to send command \".perang\" without quotes");
         } else {
             if ($this->is_cmd($message)) {
                 switch (substr($message, 1)) {
