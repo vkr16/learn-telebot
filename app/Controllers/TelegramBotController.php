@@ -17,29 +17,25 @@ class TelegramBotController extends BaseController
 
         if ($message == '/start') {
             $this->sendMessage($chat_id, "Try send command -> \".perang\" without quotes");
-            die();
-        }
-
-        if ($this->is_cmd($message)) {
-            switch (substr($message, 1)) {
-                case 'perang':
-                    $this->sendMessage($chat_id, "War invitation sent!");
-                    for ($i = 0; $i < 5; $i++) {
-                        $this->sendMessage(env('FM_ID'), "You are invited to a war by " . $firstname . "!");
-                    }
-
-                    break;
-
-                default:
-                    $this->sendMessage($chat_id, "Unknown command!");
-                    break;
-            }
         } else {
-            $this->sendMessage($chat_id, "Unknown command!");
+            if ($this->is_cmd($message)) {
+                switch (substr($message, 1)) {
+                    case 'perang':
+                        $this->sendMessage($chat_id, "War invitation sent!");
+                        for ($i = 0; $i < 5; $i++) {
+                            $this->sendMessage(env('FM_ID'), "You are invited to a war by " . $firstname . "!");
+                        }
 
-            // $text = "Hi " . $firstname . ", " . $message;
-            // $this->sendMessage($chat_id, $text);
-        };
+                        break;
+
+                    default:
+                        $this->sendMessage($chat_id, "Unknown command!");
+                        break;
+                }
+            } else {
+                $this->sendMessage($chat_id, "Unknown command!");
+            };
+        }
     }
 
     public function is_cmd($message)
