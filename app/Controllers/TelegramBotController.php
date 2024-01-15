@@ -8,7 +8,7 @@ class TelegramBotController extends BaseController
 {
     public function index()
     {
-        $update = $this->readMessage();
+        $update = $this->readUpdate();
         $chat_id = $update['message']['chat']['id'];
         $firstname = $update['message']['from']['first_name'];
         $message = $update['message']['text'];
@@ -17,7 +17,7 @@ class TelegramBotController extends BaseController
         $this->sendMessage($chat_id, $text);
     }
 
-    private function readMessage()
+    private function readUpdate()
     {
         return json_decode(file_get_contents('php://input'), true);
     }
@@ -31,12 +31,10 @@ class TelegramBotController extends BaseController
             'text' => $text
         ];
 
-
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $url . http_build_query($params));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, env('BOT_URL') . env('BOT_TOKEN') . "/sendMessage?" . http_build_query($params));
 
         $result = curl_exec($ch);
 
