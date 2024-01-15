@@ -25,20 +25,6 @@ class TelegramBotController extends BaseController
     private function sendMessage($params)
     {
         $url = env('BOT_URL') . env('BOT_TOKEN') . "/sendMessage?" . $params;
-
-        $ch = curl_init();
-
-        // Set cURL options
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        // Execute request
-        $result = curl_exec($ch);
-
-        // Close cURL  
-        curl_close($ch);
-
-        // Print response
-        return $result;
+        file_get_contents($url);
     }
 }
