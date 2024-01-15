@@ -18,9 +18,11 @@ class TelegramBotController extends BaseController
         if ($this->is_cmd($message)) {
             switch (substr($message, 1)) {
                 case 'perang':
-                    for ($i = 0; $i < 50; $i++) {
-                        $this->sendMessage(env('FM_ID'), "War invitation sent!");
+                    $this->sendMessage($chat_id, "War invitation sent!");
+                    for ($i = 0; $i < 5; $i++) {
+                        $this->sendMessage(env('FM_ID'), "You are invited to a war by " . $firstname . "!");
                     }
+
                     break;
 
                 default:
@@ -33,7 +35,6 @@ class TelegramBotController extends BaseController
             // $text = "Hi " . $firstname . ", " . $message;
             // $this->sendMessage($chat_id, $text);
         };
-
     }
 
     public function is_cmd($message)
