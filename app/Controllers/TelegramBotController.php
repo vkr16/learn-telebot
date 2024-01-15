@@ -14,7 +14,7 @@ class TelegramBotController extends BaseController
         $message = $update['message']['text'];
 
         $text = "Hi " . $firstname . ", " . $message;
-        $this->sendMessage(urlencode("chat_id=" . $chat_id . "&text=" . $message));
+        $this->sendMessage("chat_id=" . $chat_id . "&text=" . $text);
     }
 
     private function readMessage()
