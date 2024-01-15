@@ -48,11 +48,11 @@ class TelebotController extends BaseController
             foreach ($updates['result'] as $key => $update) {
                 $chat_id = $update['message']['chat']['id'];
                 $firstname = $update['message']['from']['first_name'];
-                // echo $update['update_id'];
+                echo $update['update_id'];
                 // echo " - ";
-                // echo $update['message']['text'];
+                echo $update['message']['text'];
                 // echo "<br><br>";
-                $this->sendMessage("chat_id=" . $chat_id . "&text=" . $text . $firstname);
+                // $this->sendMessage("chat_id=" . $chat_id . "&text=local-" . $text . $firstname);
             }
         }
     }
