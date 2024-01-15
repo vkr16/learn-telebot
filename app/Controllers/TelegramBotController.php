@@ -29,10 +29,11 @@ class TelegramBotController extends BaseController
             }
         } else {
             $this->sendMessage($chat_id, "Unknown command!");
+
+            // $text = "Hi " . $firstname . ", " . $message;
+            // $this->sendMessage($chat_id, $text);
         };
 
-        $text = "Hi " . $firstname . ", " . $message;
-        $this->sendMessage($chat_id, $text);
     }
 
     public function is_cmd($message)
