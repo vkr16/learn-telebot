@@ -14,14 +14,14 @@ class TelegramBotController extends BaseController
     public function index()
     {
         $update = $this->readUpdate();
-        $chat_id = $update['message']['chat']['id'];
-        $firstname = $update['message']['from']['first_name'];
+        // $chat_id = $update['message']['chat']['id'];
+        // $firstname = $update['message']['from']['first_name'];
         $message = $update['message']['text'];
 
         $commandMethod = $this->commands[$message] ?? null;
-        
+
         if ($commandMethod) {
-            return $this->$commandMethod($update); 
+            return $this->$commandMethod($update);
         }
     }
 
@@ -59,6 +59,6 @@ class TelegramBotController extends BaseController
 
     public function startCommand($update)
     {
-        $this->sendMessage($update['message']['chat']['id'],"Test response");
+        $this->sendMessage($update['message']['chat']['id'], "Test response");
     }
 }
