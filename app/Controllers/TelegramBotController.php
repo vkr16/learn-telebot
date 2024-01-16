@@ -67,7 +67,7 @@ class TelegramBotController extends BaseController
     public function randomCommand($update)
     {
         /* /random - Generate 6 digit random numbers*/
-        $random = "Random Code = *";
+        $random = "Random Code  *";
         for ($i = 0; $i < 5; $i++) {
             $random .= rand(0, 9) . " ";
         }
