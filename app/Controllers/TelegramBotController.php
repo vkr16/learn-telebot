@@ -63,4 +63,16 @@ class TelegramBotController extends BaseController
         /* /start - Start the bot*/
         $this->sendMessage($update['message']['chat']['id'], "🔥 *Welcome to AkuOnline Bot* 🔥");
     }
+
+    public function randomCommand($update)
+    {
+        /* /random - Generate 6 digit random numbers*/
+        $random = "```Random Code : ";
+        for ($i = 0; $i < 5; $i++) {
+            $random .= rand(0, 9) . " ";
+        }
+        $random .= '```';
+
+        $this->sendMessage($update['message']['chat']['id'], $random);
+    }
 }
