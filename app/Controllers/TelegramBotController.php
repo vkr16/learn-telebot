@@ -36,7 +36,8 @@ class TelegramBotController extends BaseController
 
         $params = [
             'chat_id' => $chat_id,
-            'text' => $text
+            'text' => $text,
+            'parse_mode' => 'HTML'
         ];
 
         $ch = curl_init();
@@ -58,6 +59,6 @@ class TelegramBotController extends BaseController
 
     public function startCommand($update)
     {
-        $this->sendMessage($update['message']['chat']['id'], "*Welcome to _AkuOnline_ Bot!*\n\n```By : FM```");
+        $this->sendMessage($update['message']['chat']['id'], "<b>Welcome to _AkuOnline_ Bot!</b>\n\n<code?>By : FM</code>");
     }
 }
