@@ -55,11 +55,12 @@ class TelegramBotController extends BaseController
 
 
     /**
-     * Commands
+     * Bot Command Handler
      */
 
     public function startCommand($update)
     {
+        /* /start - Start the bot*/
         $this->sendMessage($update['message']['chat']['id'], "🔥 *Welcome to AkuOnline Bot* 🔥");
     }
 }
