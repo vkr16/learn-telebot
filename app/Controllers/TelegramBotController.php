@@ -14,7 +14,6 @@ class TelegramBotController extends BaseController
     public function index()
     {
         $update = $this->readUpdate();
-        log_message('error', json_encode($update));
         $text = $update['message']['text'];
 
         $commandMethod = $this->commands[$text] ?? null;
@@ -31,14 +30,13 @@ class TelegramBotController extends BaseController
         return json_decode(file_get_contents('php://input'), true);
     }
 
-    public function sendMessage($chat_id, $text, $parse_mode = 'MarkdownV2')
+    public function sendMessage($chat_id, $text)
     {
         $url = env('BOT_URL') . env('BOT_TOKEN') . "/sendMessage?";
 
         $params = [
             'chat_id' => $chat_id,
-            'text' => $text,
-            'parse_mode' => 'markdownv2'
+            'text' => $text
         ];
 
         $ch = curl_init();
