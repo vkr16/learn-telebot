@@ -14,6 +14,7 @@ class TelegramBotController extends BaseController
     public function index()
     {
         $update = $this->readUpdate();
+        log_message('error', $update);
         $text = $update['message']['text'];
 
         $commandMethod = $this->commands[$text] ?? null;
