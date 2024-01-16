@@ -27,15 +27,13 @@ class TelegramBotController extends BaseController
         }
     }
 
-    public function sendMessage($chat_id, $text, $parse_mode = "MarkdownV2", $silent = false)
+    public function sendMessage($chat_id, $text)
     {
         $url = env('BOT_URL') . env('BOT_TOKEN') . "/sendMessage?";
 
         $params = [
             'chat_id' => $chat_id,
-            'text' => $text,
-            'parse_mode' => $parse_mode,
-            'disable_notification' => $silent
+            'text' => $text
         ];
 
         $ch = curl_init();
@@ -52,6 +50,8 @@ class TelegramBotController extends BaseController
 
     public function startCommand($update)
     {
-        $this->sendMessage($update['message']['chat']['id'], "*Selamat datang di bot _AkuOnline_ by Fikri Miftah*\nCoba balas dengan \"/random\" tanpa tanda kutip");
+        $this->sendMessage($update['message']['chat']['id'], "Selamat datang di bot AkuOnline by Fikri Miftah\n
+        Coba balas dengan \"/random\" tanpa tanda kutip");
+
     }
 }
