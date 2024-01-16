@@ -33,7 +33,9 @@ class TelegramBotController extends BaseController
 
         $params = [
             'chat_id' => $chat_id,
-            'text' => $text
+            'text' => $text,
+            'parse_mode' => $parse_mode,
+            'disable_notification' => $silent
         ];
 
         $ch = curl_init();
