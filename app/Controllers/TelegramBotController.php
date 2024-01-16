@@ -68,7 +68,7 @@ class TelegramBotController extends BaseController
     {
         /* /random - Generate 6 digit random numbers*/
         $random = "Random Code  *";
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             $random .= rand(0, 9) . " ";
         }
         $random .= '*';
