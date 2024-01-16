@@ -13,18 +13,27 @@ class TelegramBotController extends BaseController
 
     public function index()
     {
-        $update = json_decode(file_get_contents('php://input'), true);
+        $update = $this->readUpdate();
         $chat_id = $update['message']['chat']['id'];
         $firstname = $update['message']['from']['first_name'];
         $message = $update['message']['text'];
 
         $commandMethod = $this->commands[$message] ?? null;
-
+        
         if ($commandMethod) {
-            return $this->$commandMethod($update);
-        } else {
-            $this->sendMessage($chat_id, "I'm sorry, I don't understand the command \"$message\"");
+            return $this->$commandMethod($update); 
         }
+    }
+
+    public function is_cmd($message)
+    {
+
+        return substr($message, 0, 1) == "." ? true : false;
+    }
+
+    public function readUpdate()
+    {
+        return json_decode(file_get_contents('php://input'), true);
     }
 
     public function sendMessage($chat_id, $text)
@@ -50,8 +59,6 @@ class TelegramBotController extends BaseController
 
     public function startCommand($update)
     {
-        $this->sendMessage($update['message']['chat']['id'], "Selamat datang di bot AkuOnline by Fikri Miftah\n
-        Coba balas dengan \"/random\" tanpa tanda kutip");
-
+        $this->sendMessage($update['message']['chat']['id'],"Test response");
     }
 }
