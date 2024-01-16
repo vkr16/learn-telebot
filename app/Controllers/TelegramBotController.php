@@ -30,15 +30,14 @@ class TelegramBotController extends BaseController
         return json_decode(file_get_contents('php://input'), true);
     }
 
-    public function sendMessage($chat_id, $text, $parse_mode = 'MarkdownV2', $disable_notification = false)
+    public function sendMessage($chat_id, $text, $parse_mode = 'MarkdownV2')
     {
         $url = env('BOT_URL') . env('BOT_TOKEN') . "/sendMessage?";
 
         $params = [
             'chat_id' => $chat_id,
             'text' => $text,
-            'parse_mode' => $parse_mode,
-            'disable_notification' => $disable_notification
+            'parse_mode' => $parse_mode
         ];
 
         $ch = curl_init();
