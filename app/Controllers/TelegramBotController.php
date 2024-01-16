@@ -6,47 +6,25 @@ use App\Controllers\BaseController;
 
 class TelegramBotController extends BaseController
 {
-    // private $commandList = ["perang", "gas"];
+    protected $commands = [
+        '/start' => 'startCommand',
+        '/random' => 'randomCommand'
+    ];
 
     public function index()
     {
-        $update = $this->readUpdate();
+        $update = json_decode(file_get_contents('php://input'), true);
         $chat_id = $update['message']['chat']['id'];
         $firstname = $update['message']['from']['first_name'];
         $message = $update['message']['text'];
 
-        if ($message == '/start') {
-            $this->sendMessage($chat_id, "Try to send command \".perang\" without quotes");
+        $commandMethod = $this->commands[$message] ?? null;
+
+        if ($commandMethod) {
+            return $this->$commandMethod($update);
         } else {
-            if ($this->is_cmd($message)) {
-                switch (substr($message, 1)) {
-                    case 'perang':
-                        $this->sendMessage($chat_id, "War invitation sent!");
-                        for ($i = 0; $i < 5; $i++) {
-                            $this->sendMessage(env('FM_ID'), "You are invited to a war by " . $firstname . "!");
-                        }
-
-                        break;
-
-                    default:
-                        $this->sendMessage($chat_id, "Unknown command!");
-                        break;
-                }
-            } else {
-                $this->sendMessage($chat_id, "Unknown command!");
-            };
+            $this->sendMessage($chat_id, "I'm sorry, I don't understand the command \"$message\"");
         }
-    }
-
-    public function is_cmd($message)
-    {
-
-        return substr($message, 0, 1) == "." ? true : false;
-    }
-
-    public function readUpdate()
-    {
-        return json_decode(file_get_contents('php://input'), true);
     }
 
     public function sendMessage($chat_id, $text)
@@ -68,5 +46,11 @@ class TelegramBotController extends BaseController
         curl_close($ch);
 
         return $result;
+    }
+
+    public function startCommand($update)
+    {
+        $this->sendMessage($update['message']['chat']['id'], "Selamat datang di bot AkuOnline by Fikri Miftah\n
+        Coba balas dengan \"/random\" tanpa tanda kutip");
     }
 }
