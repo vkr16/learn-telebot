@@ -26,8 +26,8 @@ class TelegramBotController extends BaseController
             if ($commandMethod) {
                 return $this->$commandMethod($update);
             }
-            
-            $this->sendMessage($chat_id, "I don't understand the command");
+
+            $this->sendMessage($chat_id, ">I don't understand the command");
         }
     }
 
