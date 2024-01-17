@@ -14,24 +14,20 @@ class TelegramBotController extends BaseController
     public function index()
     {
         $headers = getallheaders();
-
-        // Read token header
         $secret = $headers['X-Telegram-Bot-Api-Secret-Token'];
-        log_message('error', $secret);
+
         if ($secret == env('BOT_SECRET')) {
             $update = $this->readUpdate();
             $text = $update['message']['text'];
-            log_message('error', $text);
+            $chat_id = $update['message']['chat']['id'];
 
             $commandMethod = $this->commands[$text] ?? null;
 
             if ($commandMethod) {
                 return $this->$commandMethod($update);
             }
-
-            return "I don't understand the command";
-        } else {
-            return "Unauthorized request";
+            
+            $this->sendMessage($chat_id, "I don't understand the command");
         }
     }
 
