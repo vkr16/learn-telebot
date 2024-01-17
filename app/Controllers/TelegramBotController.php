@@ -82,7 +82,7 @@ class TelegramBotController extends BaseController
         $message = "🔥 *Command list* 🔥\n\n_";
 
         foreach ($this->commands as $key => $cmd) {
-            $message .= "*/" . $cmd . "*" . "\n" . $this->commandDescriptions[$key] . "\n\n";
+            $message .= "*" . $key . "*" . "\n" . $this->commandDescriptions[$key] . "\n\n";
         }
 
         $this->sendMessage($update['message']['chat']['id'], $message . "_");
