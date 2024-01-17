@@ -8,7 +8,14 @@ class TelegramBotController extends BaseController
 {
     protected $commands = [
         '/start' => 'startCommand',
+        '/cmd' => 'cmdCommand',
         '/random' => 'randomCommand'
+    ];
+
+    protected $commandDescriptions = [
+        '/start' => 'Start the bot',
+        '/cmd' => ' Show all bot available commands',
+        '/random' => 'Generate 6 digit random numbers'
     ];
 
     public function index()
@@ -67,6 +74,18 @@ class TelegramBotController extends BaseController
     {
         /* /start - Start the bot*/
         $this->sendMessage($update['message']['chat']['id'], "🔥 *Welcome to AkuOnline Bot* 🔥");
+    }
+
+    public function cmdCommand($update)
+    {
+        /* /cmd - Show all bot available commands*/
+        $message = "🔥 *Command list* 🔥\n\n_";
+
+        foreach ($this->commands as $key => $cmd) {
+            $message .= "*" . $cmd . "*" . "\n" . $this->commandDescriptions[$key] . "\n\n";
+        }
+
+        $this->sendMessage($update['message']['chat']['id'], $message . "_");
     }
 
     public function randomCommand($update)
