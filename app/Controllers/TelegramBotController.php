@@ -18,7 +18,7 @@ class TelegramBotController extends BaseController
         // Read token header
         $secret = $headers['X-Telegram-Bot-Api-Secret-Token'];
         log_message('error', $secret);
-        if ($secret == env('BOT_TOKEN')) {
+        if ($secret == env('BOT_SECRET')) {
             $update = $this->readUpdate();
             $text = $update['message']['text'];
             log_message('error', $text);
