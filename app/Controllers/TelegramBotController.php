@@ -13,17 +13,25 @@ class TelegramBotController extends BaseController
 
     public function index()
     {
-        $update = $this->readUpdate();
-        $text = $update['message']['text'];
-        log_message('error', $text);
+        $headers = getallheaders();
 
-        $commandMethod = $this->commands[$text] ?? null;
+        // Read token header
+        $secret = $headers['X-Telegram-Bot-Api-Secret-Token'];
+        if ($secret == env('BOT_TOKEN')) {
+            $update = $this->readUpdate();
+            $text = $update['message']['text'];
+            log_message('error', $text);
 
-        if ($commandMethod) {
-            return $this->$commandMethod($update);
+            $commandMethod = $this->commands[$text] ?? null;
+
+            if ($commandMethod) {
+                return $this->$commandMethod($update);
+            }
+
+            return "I don't understand the command";
+        }else{
+            return "Unauthorized request";
         }
-
-        return "I don't understand the command";
     }
 
     public function readUpdate()
