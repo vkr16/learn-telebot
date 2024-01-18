@@ -32,6 +32,7 @@ class TelegramBotController extends BaseController
             $chat_id = $update['message']['chat']['id'];
 
             $commandMethod = $this->commands[$command[0]] ?? null;
+            log_message('error', $command[0]);
 
             if ($commandMethod) {
                 return $this->$commandMethod($update);
