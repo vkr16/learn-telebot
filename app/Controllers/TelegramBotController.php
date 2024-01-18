@@ -10,14 +10,12 @@ class TelegramBotController extends BaseController
         '/start' => 'startCommand',
         '/cmd' => 'cmdCommand',
         '/random' =>  'randomCommand',
-        '/appointment' =>  'appointmentCommand'
     ];
 
     protected $commandDescriptions = [
         '/start' => 'Start the bot',
         '/cmd' => ' Show all bot available commands',
         '/random' => 'Generate 6 digit random numbers',
-        '/appointment' => 'Create an appointment at specified hour\. usage\: /appointment 22\:00'
     ];
 
     public function index()
@@ -30,7 +28,7 @@ class TelegramBotController extends BaseController
             $text = $update['message']['text'];
             $chat_id = $update['message']['chat']['id'];
 
-            $commandMethod = $this->commands[explode(" ", $text)[0]] ?? null;
+            $commandMethod = $this->commands[$text] ?? null;
 
             if ($commandMethod) {
                 return $this->$commandMethod($update);
@@ -100,19 +98,5 @@ class TelegramBotController extends BaseController
         $random .= '*';
 
         $this->sendMessage($update['message']['chat']['id'], $random . "🎲");
-    }
-
-    public function appointmentCommand($update)
-    {
-        /* /appointment [time] - Create an appointment at specified hour */
-        $params = explode(' ', $update['message']['text']);
-        $regex = '/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/';
-
-        if (isset($params[1]) && preg_match($regex, $params[1])) {
-            $this->sendMessage($update['message']['chat']['id'], "Appointment asked for " . $params[1]);
-            $this->sendMessage(env('FM_ID'), "Appointment asked by " . $update['message']['from']['firstname'] . " at " . str_replace(":", '\:', $params[1]));
-        } else {
-            $this->sendMessage($update['message']['chat']['id'], "Please specify time in HH\:MM format \(e\.g\: 22\:00\)");
-        }
     }
 }
