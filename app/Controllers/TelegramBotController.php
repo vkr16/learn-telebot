@@ -107,11 +107,12 @@ class TelegramBotController extends BaseController
         /* /appointment [time] - Create an appointment at specified hour */
         $params = explode(' ', $update['message']['text']);
 
-        if (isset($params[1])) {
-            $this->sendMessage($update['message']['chat']['id'], $params[1]);
-        }else{
-            $this->sendMessage($update['message']['chat']['id'], "Please specify time in HH:MM format (e.g: 22:00)");
-        }
+        $this->sendMessage($update['message']['chat']['id'], "Please specify time in HH:MM format (e.g: 22:00)");
+        // if (isset($params[1])) {
+        //     $this->sendMessage($update['message']['chat']['id'], $params[1]);
+        // }else{
+        //     $this->sendMessage($update['message']['chat']['id'], "Please specify time in HH:MM format (e.g: 22:00)");
+        // }
 
     }
 }
