@@ -28,11 +28,9 @@ class TelegramBotController extends BaseController
         if ($secret == env('BOT_SECRET')) {
             $update = $this->readUpdate();
             $text = $update['message']['text'];
-            $command = explode(" ", $text, 1);
             $chat_id = $update['message']['chat']['id'];
 
-            $commandMethod = $this->commands[$command[0]] ?? null;
-            log_message('error', $command[0]);
+            $commandMethod = $this->commands[explode(" ", $text)[0]] ?? null;
 
             if ($commandMethod) {
                 return $this->$commandMethod($update);
