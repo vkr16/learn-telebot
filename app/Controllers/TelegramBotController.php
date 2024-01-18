@@ -10,7 +10,7 @@ class TelegramBotController extends BaseController
         '/start' => 'startCommand',
         '/cmd' => 'cmdCommand',
         '/random' =>  'randomCommand',
-        '/appointment' =>  'randomCommand'
+        '/appointment' =>  'appointmentCommand'
     ];
 
     protected $commandDescriptions = [
