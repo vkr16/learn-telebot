@@ -9,13 +9,15 @@ class TelegramBotController extends BaseController
     protected $commands = [
         '/start' => 'startCommand',
         '/cmd' => 'cmdCommand',
-        '/random' => 'randomCommand'
+        '/random' =>  'randomCommand',
+        '/appointment' =>  'randomCommand'
     ];
 
     protected $commandDescriptions = [
         '/start' => 'Start the bot',
         '/cmd' => ' Show all bot available commands',
-        '/random' => 'Generate 6 digit random numbers'
+        '/random' => 'Generate 6 digit random numbers',
+        '/appointment' => 'Generate 6 digit random numbers'
     ];
 
     public function index()
@@ -97,6 +99,19 @@ class TelegramBotController extends BaseController
         }
         $random .= '*';
 
-        $this->sendMessage($update['message']['chat']['id'], $random."🎲");
+        $this->sendMessage($update['message']['chat']['id'], $random . "🎲");
+    }
+
+    public function appointmentCommand($update)
+    {
+        /* /appointment [time] - Create an appointment at specified hour */
+        $params = explode(' ', $update['message']['text']);
+
+        if (isset($params[1])) {
+            $this->sendMessage($update['message']['chat']['id'], $params[1]);
+        }else{
+            $this->sendMessage($update['message']['chat']['id'], "Please specify time in HH:MM format (e.g: 22:00)");
+        }
+
     }
 }
