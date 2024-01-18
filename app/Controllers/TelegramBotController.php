@@ -31,7 +31,7 @@ class TelegramBotController extends BaseController
             $command = explode(" ", $text, 1);
             $chat_id = $update['message']['chat']['id'];
 
-            $commandMethod = $this->commands[$command] ?? null;
+            $commandMethod = $this->commands[$command[0]] ?? null;
 
             if ($commandMethod) {
                 return $this->$commandMethod($update);
