@@ -17,7 +17,7 @@ class TelegramBotController extends BaseController
         '/start' => 'Start the bot',
         '/cmd' => ' Show all bot available commands',
         '/random' => 'Generate 6 digit random numbers',
-        '/appointment' => 'Generate 6 digit random numbers'
+        '/appointment' => 'Create an appointment at specified hour. usage: /appointment 22:00'
     ];
 
     public function index()
