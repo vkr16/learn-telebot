@@ -28,9 +28,10 @@ class TelegramBotController extends BaseController
         if ($secret == env('BOT_SECRET')) {
             $update = $this->readUpdate();
             $text = $update['message']['text'];
+            $command = explode(" ", $text, 1);
             $chat_id = $update['message']['chat']['id'];
 
-            $commandMethod = $this->commands[$text] ?? null;
+            $commandMethod = $this->commands[$command] ?? null;
 
             if ($commandMethod) {
                 return $this->$commandMethod($update);
@@ -109,9 +110,8 @@ class TelegramBotController extends BaseController
 
         if (isset($params[1])) {
             $this->sendMessage($update['message']['chat']['id'], $params[1]);
-        }else{
+        } else {
             $this->sendMessage($update['message']['chat']['id'], "Please specify time in HH\:MM format \(e\.g\: 22\:00\)");
         }
-
     }
 }
