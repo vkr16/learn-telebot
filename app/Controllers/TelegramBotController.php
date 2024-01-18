@@ -97,6 +97,6 @@ class TelegramBotController extends BaseController
         }
         $random .= '*';
 
-        $this->sendMessage($update['message']['chat']['id'], $random." 🎲");
+        $this->sendMessage($update['message']['chat']['id'], $random."🎲");
     }
 }
